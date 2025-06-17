@@ -39,3 +39,8 @@ app.delete('/tasks/:id', async (req, res) => {
 
 const PORT = process.env.SERVER_PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.use((err, req, res, next) => {
+    console.error('💥 Error caught:', err.stack || err);
+    res.status(500).json({ error: err.message || 'Internal error occurred' });
+  });
